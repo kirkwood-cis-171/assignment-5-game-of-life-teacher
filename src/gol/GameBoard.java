@@ -6,6 +6,7 @@ import framework.State;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameBoard extends State {
@@ -18,7 +19,8 @@ public class GameBoard extends State {
         cells = new Cell[boardSize][boardSize];
         for (int i=0; i<boardSize; i++) {
             for (int j=0; j<boardSize; j++) {
-                cells[i][j] = new Cell();
+                String id = i + "x" + j;
+                cells[i][j] = new Cell(id);
             }
         }
     }
@@ -31,18 +33,32 @@ public class GameBoard extends State {
     @Override
     public void update() {
 
-        for (int i=0; i<cells.length; i++) {
-            for (int j=0; j<cells[i].length; j++) {
-                Cell[] neighbors = getNeighborsOf(i,j);
-                cells[j][i].nextState(null);
+        for (int row=0; row<cells.length; row++) {
+            for (int column=0; column<cells[row].length; column++) {
+                Cell[] neighbors = getNeighborsOf(row,column);
+                cells[column][row].nextState(null);
             }
         }
     }
 
     public Cell[] getNeighborsOf(int row, int column) {
-        return new Cell[] { new Cell("0x0"), new Cell("1x0"), new Cell("0x1")};
+        return new Cell[] {
+                cells[row][column+1],
+                cells[row+1][column],
+                cells[row+1][column+1]
+        };
     }
 
+    public Cell[] filterAlive(Cell[] cells) {
+        ArrayList<Cell> aliveCells = new ArrayList<>();
+        for (int i=0; i< cells.length; i++) {
+            if( cells[i].isAlive()) {
+                aliveCells.add(cells[i]);
+            }
+        }
+
+        return (Cell[]) aliveCells.toArray();
+    }
     @Override
     public void render(Graphics g) {
         g.setColor(Color.WHITE);

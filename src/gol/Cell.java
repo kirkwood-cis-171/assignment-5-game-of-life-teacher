@@ -29,6 +29,9 @@ public class Cell {
         } else {
 
             //Real stuff
+            switch (neighbors.length) {
+
+            }
         }
     }
 }
