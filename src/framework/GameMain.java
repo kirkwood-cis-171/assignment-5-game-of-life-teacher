@@ -12,7 +12,7 @@ public class GameMain {
 
     public static final int WIDTH = 800;
     public static final int HEIGHT = 400;
-    public static final int GRID_SIZE = 10;
+    public static final int GRID_SIZE = 1000;
 
     static Game sGame;
 

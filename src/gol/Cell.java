@@ -23,15 +23,19 @@ public class Cell {
     }
 
     public void nextState(Cell[] neighbors) {
-        if (neighbors == null) {
-            boolean even = (rand.nextInt(100) % 2) == 0;
-            isAlive = even;
-        } else {
 
-            //Real stuff
-            switch (neighbors.length) {
-
-            }
+        if(isAlive && neighbors.length < 2) {
+            isAlive = false;
+        } else if ( isAlive && (neighbors.length == 2 || neighbors.length == 3)) {
+            isAlive = true;
+        } else if (isAlive && neighbors.length > 3) {
+            isAlive = false;
+        } if ( !isAlive && neighbors.length == 3) {
+            isAlive = true;
         }
+    }
+
+    public void live() {
+        isAlive = true;
     }
 }
