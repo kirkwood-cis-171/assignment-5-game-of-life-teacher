@@ -20,9 +20,7 @@ public class GameBoard extends State {
     private int getBoardSize() {
         return cells.length;
     }
-
-    public GameBoard(int boardSize) {
-
+public GameBoard(int boardSize) {
         Random r = new Random();
         cells = new Cell[boardSize][boardSize];
         for (int i=0; i<boardSize; i++) {
@@ -30,7 +28,8 @@ public class GameBoard extends State {
                 String id = i + "x" + j;
                 cells[i][j] = new Cell(id);
 
-                if (r.nextInt(100) % 2 == 0) {
+                int random = r.nextInt(100);
+                if ( (random % 2 == 0) || random % 3 == 0) {
                     cells[i][j].live();
                 }
             }

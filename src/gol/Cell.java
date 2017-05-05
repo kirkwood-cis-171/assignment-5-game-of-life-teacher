@@ -5,13 +5,15 @@ import java.util.Random;
 public class Cell {
 
     private static final Random rand = new Random();
-    private boolean isAlive;
+    private boolean isAlive = false;
     private String id;
-    public Cell() {
 
-    }
     public Cell(String id) {
        this.id = id;
+    }
+    public Cell(String id, Boolean isAlive) {
+        this.id = id;
+        this.isAlive = isAlive;
     }
 
     public String getId() {

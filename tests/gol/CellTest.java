@@ -21,4 +21,51 @@ public class CellTest {
         c.nextState(neighbors);
         assertTrue("Cell should have been born",c.isAlive());
     }
+
+    @Test
+    public void testAliveWithLessThan2NeighborsDies() {
+       Cell c = new Cell("1", true);
+       c.nextState(makeNeighbors(1));
+       assertFalse("Should be dead",c.isAlive());
+    }
+
+    private Cell[] makeNeighbors(int num) {
+        Cell[] cells = new Cell[num];
+        for(int i=0; i< num; i++) {
+            cells[i] = new Cell("", true);
+        }
+
+        return cells;
+    }
+    @Test
+    public void testAliveWith2Or3LiveNeigborsStaysAlive() {
+
+        Cell c = new Cell("1", true);
+        c.nextState(makeNeighbors(2));
+        assertTrue("Should be alive",c.isAlive());
+        c.nextState(makeNeighbors(3));
+        assertTrue("Should be alive",c.isAlive());
+    }
+    @Test
+    public void testAliveWithMoreThan3LiveNeighborsDies() {
+        Cell c = new Cell("1", true);
+        c.nextState(makeNeighbors(4));
+        assertFalse("Should be dead",c.isAlive());
+
+    }
+    @Test
+    public void testDeadWithExactly3NeighborsIsBorn()  {
+        Cell c = new Cell("1", false);
+        c.nextState(makeNeighbors(3));
+        assertTrue("Should be alive",c.isAlive());
+
+    }
+
+    @Test
+    public void testDeadWith2NeighborsStaysDead() {
+        Cell c = new Cell("1", false);
+        c.nextState(makeNeighbors(2));
+        assertFalse("Should be dead",c.isAlive());
+
+    }
 }
